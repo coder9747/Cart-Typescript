@@ -56,4 +56,3 @@ This application was built in 6 hours. Given more time, it can be extended into 
 
 ---
 
-Feel free to modify this template as per your needs!
