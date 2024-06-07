@@ -53,6 +53,7 @@ export const handleLogin = async (req: Request, res: Response) => {
         }
 
     } catch (error: any) {
+        console.log(error);
         res.status(500).json({
             succes: false, message: error.issues ?
                 error.issues[0].message : "Internal Server Error",

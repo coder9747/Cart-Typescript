@@ -63,6 +63,7 @@ const handleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({
             succes: false, message: error.issues ?
                 error.issues[0].message : "Internal Server Error",
