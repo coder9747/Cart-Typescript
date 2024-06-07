@@ -5,7 +5,7 @@ import { addToCart, CartItems } from '../store/UserSlice/UserSlice';
 
 
 interface ProductData {
-  _id:string,
+  _id: string,
   name: string,
   price: string,
   imageUrl: string,
@@ -15,19 +15,24 @@ const Home = () => {
   const [products, setProducts] = useState<Array<ProductData> | null>([]);
   useEffect(() => {
     (async () => {
-      const response = await fetch('http://localhost:10000/api/v1/product/getdata');
-      const data: { succes: boolean, data: Array<ProductData> } = await response.json();
-      setProducts(data.data);
+      try {
+        const response = await fetch('http://localhost:10000/api/v1/product/getdata');
+        const data: { succes: boolean, data: Array<ProductData> } = await response.json();
+        setProducts(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+
     })()
 
   }, []);
-  const [message,setMessae] = useState<string>("");
+  const [message, setMessae] = useState<string>("");
   const dispatch = useDispatch();
 
-  async function handleClick({price,_id,imageUrl}:{price:string,_id:string,imageUrl:string}) {
-    
+  async function handleClick({ price, _id, imageUrl }: { price: string, _id: string, imageUrl: string }) {
+
     if (localStorage.getItem("token")) {
-        dispatch(addToCart({price,_id,imageUrl}));
+      dispatch(addToCart({ price, _id, imageUrl }));
     }
     else {
       //user is not logged in 
@@ -38,7 +43,7 @@ const Home = () => {
   return (
     <div>
       <Nav />
-      <p className='text-red-500 text-xl text-center'>{message.length>0 && message}</p>
+      <p className='text-red-500 text-xl text-center'>{message.length > 0 && message}</p>
       <div className="flex justify-around my-5 flex-wrap items-center">
         {
           products && products.map((item: ProductData) => {
@@ -49,7 +54,7 @@ const Home = () => {
                 <p className="text-gray-700 text-base">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                 </p>
-                <button onClick={()=>handleClick(item)} className='h-12 p-2 rounded my-2 bg-green-500 text-white  w-full border'>Add To Cart</button>
+                <button onClick={() => handleClick(item)} className='h-12 p-2 rounded my-2 bg-green-500 text-white  w-full border'>Add To Cart</button>
               </div>
 
             </div>)

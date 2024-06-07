@@ -8,7 +8,6 @@ import Cart from './Components/Cart';
 
 const App = () => {
   const state = useSelector(state=>state);
-  console.log(state);
   return (
    <Routes>
     <Route path='/' element={<Home/>}/>
